@@ -6,13 +6,45 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:30:44 by angrodri          #+#    #+#             */
-/*   Updated: 2022/12/10 21:18:31 by angrodri         ###   ########.fr       */
+/*   Updated: 2022/12/17 16:26:22 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
+static size_t	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (*(s + i) != '\0')
+		i++;
+	return (i);
+}
+
+static char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*ret;
+	int		i;
+	int		n1;
+	int		n2;
+
+	n1 = ft_strlen((char *)s1);
+	n2 = ft_strlen((char *)s2);
+	ret = malloc((n1 + n2 + 1) * sizeof(char));
+	if (ret == NULL)
+		return (NULL);
+	i = -1;
+	while (++i < n1)
+		*(ret + i) = *(s1 + i);
+	i--;
+	while (++i < n1 + n2)
+		*(ret + i) = *(s2 + i - n1);
+	*(ret + i) = '\0';
+	return (ret);
+}
+
+static void	ft_bzero(void *s, size_t n)
 {
 	int		i;
 	char	*c;
@@ -26,7 +58,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-void	*ft_calloc(size_t count, size_t size)
+static void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
 
@@ -37,8 +69,6 @@ void	*ft_calloc(size_t count, size_t size)
 		ft_bzero(ptr, count * size);
 	return (ptr);
 }
-
-
 
 char	*subsubstr(char *line, int *counter)
 {

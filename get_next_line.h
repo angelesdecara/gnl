@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:05:36 by angrodri          #+#    #+#             */
-/*   Updated: 2022/12/10 19:56:21 by angrodri         ###   ########.fr       */
+/*   Updated: 2022/12/17 16:26:19 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # define BUFFER_SIZE 1024
 #endif
 
-char	*get_next_line(int fd);
+char			*get_next_line(int fd);
+static size_t	ft_strlen(char *s);
+static char		*ft_strjoin(char const *s1, char const *s2);
+static void		ft_bzero(void *s, size_t n);
+static void		*ft_calloc(size_t count, size_t size);
+char			*subsubstr(char *line, int *counter);
+char			*readbuf(int fd, char *str);
 
 #endif
