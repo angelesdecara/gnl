@@ -6,13 +6,13 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:30:44 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/08 17:28:14 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/08 21:06:57 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static size_t	ft_strlen(char *s)
+size_t	ft_strlen(char *s)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ static size_t	ft_strlen(char *s)
 	return (i);
 }
 
-static char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*ret;
 	int		i;
@@ -44,7 +44,7 @@ static char	*ft_strjoin(char const *s1, char const *s2)
 	return (ret);
 }
 
-static void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
 	int		i;
 	char	*c;
@@ -58,7 +58,7 @@ static void	ft_bzero(void *s, size_t n)
 	}
 }
 
-static void	*ft_calloc(size_t count, size_t size)
+void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
 
@@ -70,66 +70,14 @@ static void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-char	*subsubstr(char *line, int *counter)
-{
-	int		i;
-	char	*ret;
-
-	i = 0;
-	while (line[*counter + i] != '\n' || line[*counter + i] != '\0') 
-		i++;
-	ret = ft_calloc((i + 1), sizeof(char));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (line[*counter + i] != '\n' || line[*counter + i] != '\0')
-	{
-		ret[i] = line[*counter + i];
-		i++;
-	}
-	ret[i] = '\0';
-	*counter = *counter + i;
-	return(ret);
-}
-
-char	*readbuf(int fd, char *str)
-{
-	char	*buf[BUFFER_SIZE];
-	int		i;
-
-	i = 0;
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, &str, 0) < 0)
-		return (NULL);
-	if (str == NULL)
-		str = ft_calloc(2,  sizeof(char));
-	while (!(ft_strchr(str, '\n')))
-	{
-		if (i == read(fd, buf, BUFFER_SIZE) < 0)
-			return (NULL);
-		*(buf + i) = '\0';
-		str = ft_strjoin(str, buf);
-		if (str[0] == '\0' || i == 0)
-			break;
-	}
-	return (str);
-}
-
-char	*ft_strchr(const char *s,int c)
-{
-	while (*s != (char)c)
-		if (!*s++)
-			return (0);
-	return ((char *)s);
-}
-
 int	main(void)
 {
-	int			fd;
-	static char	*str;
+	int		fd;
+	char	*str;
 
 	fd = open("foo.txt", O_RDONLY);
-	str = readbuf(fd, str);
+	str = get_next_line(fd);
+	printf("str = %s and length = %zu\n",str,ft_strlen(str));
 	write(1, str, 100);
-	//get_next_line(fd);
 	close(fd);
 }
