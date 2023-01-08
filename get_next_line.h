@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:05:36 by angrodri          #+#    #+#             */
-/*   Updated: 2022/12/17 16:26:19 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:08:33 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ static void		ft_bzero(void *s, size_t n);
 static void		*ft_calloc(size_t count, size_t size);
 char			*subsubstr(char *line, int *counter);
 char			*readbuf(int fd, char *str);
+char			*ft_strchr(const char *s, int c);
 
 #endif

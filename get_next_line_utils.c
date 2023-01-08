@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:30:44 by angrodri          #+#    #+#             */
-/*   Updated: 2022/12/17 16:26:22 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:28:14 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,11 @@ char	*readbuf(int fd, char *str)
 	char	*buf[BUFFER_SIZE];
 	int		i;
 
+	i = 0;
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, &str, 0) < 0)
 		return (NULL);
 	if (str == NULL)
-		str = calloc(2,  sizeof(char));
+		str = ft_calloc(2,  sizeof(char));
 	while (!(ft_strchr(str, '\n')))
 	{
 		if (i == read(fd, buf, BUFFER_SIZE) < 0)
@@ -111,6 +112,14 @@ char	*readbuf(int fd, char *str)
 			break;
 	}
 	return (str);
+}
+
+char	*ft_strchr(const char *s,int c)
+{
+	while (*s != (char)c)
+		if (!*s++)
+			return (0);
+	return ((char *)s);
 }
 
 int	main(void)
