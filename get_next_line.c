@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:37:56 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/08 21:10:02 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/10 20:39:25 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,32 @@ char	*subsubstr(char *line, char *remainer)
 	int		i;
 	char	*ret;
 
-	i = 0;
-	while (line[i] != '\n' && line[i] != '\0')
-		i++;
-	ret = ft_calloc((i + 1), sizeof(char));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (line[i] != '\n' && line[i] != '\0')
+	if (!ft_strchr(line, '\0') && !ft_strchr(line, '\n'))
 	{
-		ret[i] = line[i];
-		i++;
+		remainer = ft_calloc(ft_strlen(line) + 1, sizeof(char));
+		remainer = line;
+		return (NULL); // not quite
 	}
-	ret[i] = '\0';
-	if (remainer)
-		ret = ft_strjoin(ret, remainer);
-	ft_saveremain(line, remainer);
+	// if buffer contains \0 or \n then separate and add previous remainer
+	else
+	{
+		i = 0;
+		while (line[i] != '\n' && line[i] != '\0')
+			i++;
+		ret = ft_calloc((i + 1), sizeof(char));
+		if (!ret)
+			return (NULL);
+		i = 0;
+		while (line[i] != '\n' && line[i] != '\0')
+		{
+			ret[i] = line[i];
+			i++;
+		}
+		ret[i] = '\0';
+		if (remainer)
+			ret = ft_strjoin(ret, remainer);
+		ft_saveremain(line, remainer);
+	}
 	return (ret);
 }
 

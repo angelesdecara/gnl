@@ -2,10 +2,10 @@
 # Working on gnl
 
 * idea:
-	[] read buffer size
-	[] search up to newline or end of string
-	[] -> store remainer (leftover of buffer size - line ) in static variabe
-	[] -> return line (with remainer before if it exists)
+	read buffer size
+	search up to newline or end of string
+	 -> store remainer (leftover of buffer size - line ) in static variabe
+	 -> return line (with remainer before if it exists)
 
 * Done with:
   -> allocate with calloc a string of size buffer size; check if allocation has worked
@@ -17,3 +17,6 @@
 
  * Ideas?
   -> Thinking of first calling saveremain so that reads buffer and if there's end of line, separate
+  -> Or use ft_strchr to see if buffer contains eol or end of string:
+  		+ if yes, separate in return + remain
+		+ if not, remain = buffer
