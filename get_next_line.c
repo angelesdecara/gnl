@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:37:56 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/10 20:39:25 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/13 20:54:02 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*get_next_line(int fd)
 {
+	int				i;
+	int				j;
 	char			*line;
 	char			*str;
 	static char		*remainer;
@@ -21,14 +23,51 @@ char	*get_next_line(int fd)
 	line = ft_calloc(BUFFER_SIZE + 2, sizeof(char));
 	if (!line)
 		return (NULL);
-	if (read(fd, line, BUFFER_SIZE) > 0)
+	while (read(fd, line, BUFFER_SIZE) > 0 && !ft_strchr(line, '\n'))// && !ft_strchr(line, '\0'))
 	{
-		str = subsubstr(line, remainer);
-		printf("str = %s\n",str);
-		return (str);
+		if (remainer)
+			remainer = ft_strjoin(remainer, line);
+		else
+		{
+			remainer = ft_calloc(ft_strlen(line) + 1, sizeof(char));
+			ft_strlcpy(remainer, line, ft_strlen(line) + 1);
+		}
+	}
+	printf("test large buffer sze, remainer = %s, line=%s\n", remainer, line);
+	// get out when line, which has been read to buffer, contains EOL 
+	if (remainer)
+	{
+		i = 0;
+		while (line[i] != '\0' && line[i] != '\n')
+			i++;
+		str = ft_calloc(ft_strlen(remainer) + i + 1, sizeof(char));
+		ft_strlcpy(str, remainer, ft_strlen(remainer) + 1);
+		j = 0;
+		while (line[j] != '\0' && line[j] != '\n')
+		{
+			str[j + ft_strlen(remainer) + 1] = line[j];
+			j++;
+		}
+		free(remainer);
+		remainer = ft_calloc(ft_strlen(line) - i + 2, sizeof(char));
+		j = -1;
+		while (line[i + 1 + j++] != '\0')
+		{
+			remainer[j] = line[i + 1 + j];
+		}
 	}
 	else
-		return (0);
+	{
+		i = 0;
+		while (line[i] != '\0' && line[i] != '\n')
+			i++;
+		str = ft_calloc(i + 1, sizeof(char));
+		ft_strlcpy(str, line, i);
+		remainer = ft_calloc(ft_strlen(line) - i + 1, sizeof(char));
+		ft_strlcpy(str, line + i, ft_strlen(line) - i);
+		printf("remainer didnt exist, so str=%s and remainer = %s\n",str,remainer);
+	}	
+	return (str);
 }
 
 char	*subsubstr(char *line, char *remainer)
@@ -36,10 +75,17 @@ char	*subsubstr(char *line, char *remainer)
 	int		i;
 	char	*ret;
 
+	// if no newline or EOL, then it's all remainer
+	//allocate it, append previous remainer
 	if (!ft_strchr(line, '\0') && !ft_strchr(line, '\n'))
 	{
-		remainer = ft_calloc(ft_strlen(line) + 1, sizeof(char));
-		remainer = line;
+		if (remainer)
+			remainer = ft_strjoin(remainer,line);
+		else
+		{
+			remainer = ft_calloc(ft_strlen(line) + 1, sizeof(char));
+			remainer = line;
+		}
 		return (NULL); // not quite
 	}
 	// if buffer contains \0 or \n then separate and add previous remainer
@@ -59,7 +105,7 @@ char	*subsubstr(char *line, char *remainer)
 		}
 		ret[i] = '\0';
 		if (remainer)
-			ret = ft_strjoin(ret, remainer);
+			ret = ft_strjoin(remainer, ret);
 		ft_saveremain(line, remainer);
 	}
 	return (ret);
@@ -76,7 +122,13 @@ void	ft_saveremain(char *line, char *remain)
 	while (line[i] != '\n' && line[i] != '\0')
 		i++;
 	lenline = i;
-	remain = ft_calloc(lenline + 2, sizeof(char));
+	if (!remain)
+		remain = ft_calloc(lenline + 2, sizeof(char));
+	else
+	{
+		free(remain);
+		remain = ft_calloc(lenline + 2, sizeof(char));
+	}
 	i = 0;
 	while (i + lenline <= len)
 	{

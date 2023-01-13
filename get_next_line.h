@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:05:36 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/10 20:12:40 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:50:39 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	*ft_calloc(size_t count, size_t size);
 char	*subsubstr(char *line, char *counter);
 void	ft_saveremain(char *line, char *remain);
 char	*ft_strchr(const char *s, int c);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 #endif

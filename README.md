@@ -20,3 +20,5 @@
   -> Or use ft_strchr to see if buffer contains eol or end of string:
   		+ if yes, separate in return + remain
 		+ if not, remain = buffer
+
+  * WORKING!! but need to normineet it and test it!
