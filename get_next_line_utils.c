@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:30:44 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/13 20:36:46 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/14 22:37:39 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,48 +70,18 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s != (char)c)
-		if (!*s++)
-			return (0);
-	return ((char *)s);
-}
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	int	i;
-
-	i = 0;
-	while ((unsigned long)i < dstsize && *(src + i) != '\0')
-	{
-		*(dst + i) = *(src + i);
-		i++;
-	}
-	if ((unsigned long)i == dstsize)
-		i--;
-	if (dstsize > 0)
-		dst[i] = '\0';
-	return (ft_strlen((char *)src));
-}
-
-int	main(void)
+int main(void)
 {
 	int		fd;
-	char	*str;
+	char*	str;
 
 	fd = open("foo.txt", O_RDONLY);
-//	str=ft_calloc(5,sizeof(char));
-//	while (read(fd, str, 4) > 0 && !ft_strchr(str, '\n'))
-//	{
-//		printf("4 chars read = %s\n", str);
-	//	printf("str[1]=%s\n", str+1);
-//	}
-	printf("first call\n");
 	str = get_next_line(fd);
-	write(1, str, ft_strlen(str));
-	printf("second call\n");
+	printf("str=%s\n", str);
 	str = get_next_line(fd);
-	write(1, str, ft_strlen(str));
+	printf("str=%s\n", str);
+	str = get_next_line(fd);
+	printf("str=%s\n", str);
 	close(fd);
 }

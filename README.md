@@ -13,7 +13,8 @@
 
 * Issues:
   -> when printing out with write is printing whole line (that was compiling with -DBUFFER_SIZE=42)
-  -> when compiling with DBUFFER_SIZE=2 or small I only get those characters, so not joining
+  -> NEED to add \n when there are more lines 
+  -> added _if_ at beginning when there was remainer read and contained end of line  
 
  * Ideas?
   -> Thinking of first calling saveremain so that reads buffer and if there's end of line, separate
