@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:37:56 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/14 22:39:44 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:24:31 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*get_next_line(int fd)
 		ft_strlcpy(str, remainer, i + 1);
 		str[i] = '\n';
 		ft_strlcpy(remainer, remainer + i + 1, ft_strlen(remainer) - i);
+		free(line);
 		return (str);
 	}
 	else
@@ -53,7 +54,6 @@ char	*get_next_line(int fd)
 		}
 		if (!ft_strchr(line, '\n'))
 			ft_bzero(line, BUFFER_SIZE + 2);
-		printf("remainer = %s, line =%s\n",remainer, line);
 	}
 	if (remainer)
 	{
@@ -75,6 +75,7 @@ char	*get_next_line(int fd)
 		j = -1;
 		while (line[i + 1 + j++] != '\0')
 			remainer[j] = line[i + 1 + j];
+		free(line);
 		return (str);
 	}
 	else
@@ -88,10 +89,11 @@ char	*get_next_line(int fd)
 			str[i] = '\n';	
 		if (ft_strlen(str) != ft_strlen(line))
 		{
-			remainer = ft_calloc(ft_strlen(line) - i + 1, sizeof(char));
-			ft_strlcpy(remainer, line + i + 1, ft_strlen(line) - i - 1);
+			remainer = ft_calloc(ft_strlen(line) - i + 2, sizeof(char));
+			ft_strlcpy(remainer, line + i + 1, ft_strlen(line) - i); // -1
 		}
 	}	
+	free(line);
 	return (str);
 }
 

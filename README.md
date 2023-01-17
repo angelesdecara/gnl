@@ -12,9 +12,8 @@
   -> subsubstr(buffer, remainer) allocates line, joins remainer if exist to line, allocates remainer and fills it and returns line (combined with function saveremain)
 
 * Issues:
-  -> when printing out with write is printing whole line (that was compiling with -DBUFFER_SIZE=42)
-  -> NEED to add \n when there are more lines 
   -> added _if_ at beginning when there was remainer read and contained end of line  
+  - have a return NULL when line length is zero, what happens if not? Added when read nothing, but 
 
  * Ideas?
   -> Thinking of first calling saveremain so that reads buffer and if there's end of line, separate

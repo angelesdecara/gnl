@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:30:44 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/14 22:37:39 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:23:55 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,16 @@ int main(void)
 	int		fd;
 	char*	str;
 
-	fd = open("foo.txt", O_RDONLY);
+	fd = open("onelinenonl.txt", O_RDONLY);
 	str = get_next_line(fd);
-	printf("str=%s\n", str);
+	printf("str=%s", str);
 	str = get_next_line(fd);
-	printf("str=%s\n", str);
-	str = get_next_line(fd);
-	printf("str=%s\n", str);
+	printf("str=%s", str);
+//	str = get_next_line(fd);
+//	printf("str=%s", str);
+//	str = get_next_line(fd);
+//	printf("str=%s", str);
+//	str = get_next_line(fd);
+//	printf("str=%s\n", str);
 	close(fd);
 }
