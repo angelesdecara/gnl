@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:37:56 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/17 20:24:31 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/02/11 21:08:44 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ char	*get_next_line(int fd)
 		while (read(fd, line, BUFFER_SIZE) > 0 && !ft_strchr(line, '\n'))
 		{
 			if (remainer)
+			{
 				remainer = ft_strjoin(remainer, line);
+			}
+			//should I free line in this if above?
 			else
 			{
 				remainer = ft_calloc(ft_strlen(line) + 2, sizeof(char));
@@ -49,6 +52,8 @@ char	*get_next_line(int fd)
 		}
 		if (ft_strlen(line) == 0)
 		{
+			//issue here: sometimes line is empty but there's remainer
+			//maybe free line, break and continue: NO
 			free(line);
 			return (NULL);
 		}
@@ -65,7 +70,7 @@ char	*get_next_line(int fd)
 		j = 0;
 		while (line[j] != '\0' && line[j] != '\n')
 		{
-			str[j + ft_strlen(remainer) + 1] = line[j];
+			str[j + ft_strlen(remainer)] = line[j];
 			j++;
 		}
 		if (ft_strchr(line, '\n') || ft_strchr(remainer, '\n'))
@@ -92,7 +97,7 @@ char	*get_next_line(int fd)
 			remainer = ft_calloc(ft_strlen(line) - i + 2, sizeof(char));
 			ft_strlcpy(remainer, line + i + 1, ft_strlen(line) - i); // -1
 		}
-	}	
+	}
 	free(line);
 	return (str);
 }

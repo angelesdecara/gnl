@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:05:36 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/13 19:50:39 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/01/19 20:01:10 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-#ifndef BUFFER_SIZE 
-# define BUFFER_SIZE 1024
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(char *s);

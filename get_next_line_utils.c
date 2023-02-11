@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:30:44 by angrodri          #+#    #+#             */
-/*   Updated: 2023/01/17 20:23:55 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/02/11 20:46:39 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,13 @@ int main(void)
 {
 	int		fd;
 	char*	str;
-
-	fd = open("onelinenonl.txt", O_RDONLY);
+//
+	fd = open("41_with_nl.txt", O_RDONLY);
 	str = get_next_line(fd);
-	printf("str=%s", str);
+	printf("fd=%d, in main str=%s",fd, str);
 	str = get_next_line(fd);
-	printf("str=%s", str);
-//	str = get_next_line(fd);
-//	printf("str=%s", str);
-//	str = get_next_line(fd);
-//	printf("str=%s", str);
-//	str = get_next_line(fd);
-//	printf("str=%s\n", str);
+	printf("in main str=%s", str);
 	close(fd);
+	free(str);
+	system("leaks a.out");
 }
