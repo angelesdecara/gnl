@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:37:56 by angrodri          #+#    #+#             */
-/*   Updated: 2023/02/11 21:08:44 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:22:41 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*get_next_line(int fd)
 		while (remainer[i] != '\n')
 			i++;
 		str = ft_calloc(i + 2, sizeof(char));
+		//check malloc...
 		ft_strlcpy(str, remainer, i + 1);
 		str[i] = '\n';
 		ft_strlcpy(remainer, remainer + i + 1, ft_strlen(remainer) - i);
@@ -50,15 +51,16 @@ char	*get_next_line(int fd)
 				ft_strlcpy(remainer, line, ft_strlen(line) + 1);
 			}
 		}
-		if (ft_strlen(line) == 0)
+		printf("line=%s, remainer=%s\n",line, remainer);
+		if (ft_strlen(line) == 0 && !remainer)
 		{
-			//issue here: sometimes line is empty but there's remainer
-			//maybe free line, break and continue: NO
+			printf("entered setting line to null\n");
 			free(line);
 			return (NULL);
 		}
 		if (!ft_strchr(line, '\n'))
 			ft_bzero(line, BUFFER_SIZE + 2);
+		printf("out of if: line=%s, remainer=%s\n",line, remainer);
 	}
 	if (remainer)
 	{
