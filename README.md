@@ -39,6 +39,7 @@
         ft_strlcpy(str, remainer, ft_strlen(remainer) + 2);
 
  * Issues with leaks, seems to be in else that finishes in line 56 (ft_bzero). Wondering if should remove the bzero and free line there 
+ * Issues with end of files or one line with no end of line: doesnt return null, returns empty
 
  * Reunderstanding the logic of my gnl:
  	1/ allocate to buffer number of reading chars; if reading wrong, return null

@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:37:56 by angrodri          #+#    #+#             */
-/*   Updated: 2023/02/14 20:22:41 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:15:05 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*get_next_line(int fd)
 {
 	int				i;
-	int				j;
 	char			*line;
 	char			*str;
 	static char		*remainer;
@@ -29,7 +28,6 @@ char	*get_next_line(int fd)
 		while (remainer[i] != '\n')
 			i++;
 		str = ft_calloc(i + 2, sizeof(char));
-		//check malloc...
 		ft_strlcpy(str, remainer, i + 1);
 		str[i] = '\n';
 		ft_strlcpy(remainer, remainer + i + 1, ft_strlen(remainer) - i);
@@ -38,51 +36,37 @@ char	*get_next_line(int fd)
 	}
 	else
 	{
-		while (read(fd, line, BUFFER_SIZE) > 0 && !ft_strchr(line, '\n'))
+		while ((i = read(fd, line, BUFFER_SIZE)) > 0 && !ft_strchr(line, '\n'))
 		{
 			if (remainer)
-			{
 				remainer = ft_strjoin(remainer, line);
-			}
-			//should I free line in this if above?
 			else
 			{
 				remainer = ft_calloc(ft_strlen(line) + 2, sizeof(char));
 				ft_strlcpy(remainer, line, ft_strlen(line) + 1);
 			}
 		}
-		printf("line=%s, remainer=%s\n",line, remainer);
-		if (ft_strlen(line) == 0 && !remainer)
+		if (i <= 0)
 		{
-			printf("entered setting line to null\n");
 			free(line);
-			return (NULL);
+			if (remainer && ft_strlen(remainer) > 0)
+				return (remainer);
+			else
+				return (NULL);
 		}
-		if (!ft_strchr(line, '\n'))
-			ft_bzero(line, BUFFER_SIZE + 2);
-		printf("out of if: line=%s, remainer=%s\n",line, remainer);
+		free(line);
+		// malloc: *** error for object 0x7fa40e405800: pointer being freed was not allocated
 	}
 	if (remainer)
 	{
 		i = 0;
-		while (line[i] != '\0' && line[i] != '\n')
+		while (remainer[i] != '\0' && remainer[i] != '\n')
 			i++;
-		str = ft_calloc(ft_strlen(remainer) + i + 2, sizeof(char));
-		ft_strlcpy(str, remainer, ft_strlen(remainer) + 2);
-		j = 0;
-		while (line[j] != '\0' && line[j] != '\n')
-		{
-			str[j + ft_strlen(remainer)] = line[j];
-			j++;
-		}
-		if (ft_strchr(line, '\n') || ft_strchr(remainer, '\n'))
-			str[ft_strlen(str)] = '\n';
-		free(remainer);
-		remainer = ft_calloc(ft_strlen(line) - i + 2, sizeof(char));
-		j = -1;
-		while (line[i + 1 + j++] != '\0')
-			remainer[j] = line[i + 1 + j];
-		free(line);
+		str = ft_calloc(i + 2, sizeof(char));
+		ft_strlcpy(str, remainer, i);
+		if (ft_strchr(remainer, '\n'))
+			str[i + 1] = '\n';
+		ft_strlcpy(remainer, remainer + i, ft_strlen(remainer) - i);
 		return (str);
 	}
 	else
