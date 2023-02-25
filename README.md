@@ -2,7 +2,8 @@
 # Working on gnl
 
 * 25/02/2023
-  -> altnl not working, cuts line short => shall we append \n to remainer?
+-> redone but issues remain
+-> issues when nothing to read, ie line if (i<=0) 
 
 * idea:
 	read buffer size

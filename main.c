@@ -5,7 +5,7 @@ int main(void)
 	int		fd;
 	char*	str;
 
-	fd = open("41_with_nl.txt", O_RDONLY);
+	fd = open("onelinenonl.txt", O_RDONLY);
 	str = get_next_line(fd);
 	printf("fd = %d, in main str = %s\n", fd, str);
 	free(str);
