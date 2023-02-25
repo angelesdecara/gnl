@@ -1,6 +1,9 @@
 
 # Working on gnl
 
+* 25/02/2023
+  -> altnl not working, cuts line short => shall we append \n to remainer?
+
 * idea:
 	read buffer size
 	search up to newline or end of string
