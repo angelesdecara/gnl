@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:30:44 by angrodri          #+#    #+#             */
-/*   Updated: 2023/02/21 18:56:05 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:09:40 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,12 @@ void	*ft_calloc(size_t count, size_t size)
 	if (ptr)
 		ft_bzero(ptr, count * size);
 	return (ptr);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s != (char)c)
+		if (!*s++)
+			return (0);
+	return ((char *)s);
 }

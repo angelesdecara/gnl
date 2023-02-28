@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:05:36 by angrodri          #+#    #+#             */
-/*   Updated: 2023/02/25 15:56:43 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:12:43 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ size_t	ft_strlen(char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
-char	*subsubstr(char *line, char *counter);
 char	*ft_strchr(const char *s, int c);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_readbuffer(int c, char *str);
+char	*ft_cpyfree(char *stringa, char *str);
+char	*ft_getline(char *str);
+char	*ft_nextremainer(char *str);
 
 #endif
