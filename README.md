@@ -1,9 +1,11 @@
 
 # Working on gnl
 
-* 25/02/2023
--> redone but issues remain
--> issues when nothing to read, ie line if (i<=0) 
+* 05/03/2023
+-> completely redone, one issue remains
+-> if file is closed and reopened, the static variable still has a value and doesn't go back
+	to beginning of file, but appends buffer to remaining static variable.
+-> "paco" says "Probable reason: You should clear the static buffer when a call to read returns -1", so let's find if read returns -1 
 
 * idea:
 	read buffer size

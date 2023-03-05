@@ -6,24 +6,24 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:37:56 by angrodri          #+#    #+#             */
-/*   Updated: 2023/03/05 20:09:43 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/03/05 18:49:41 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
 	char			*str;
-	static char		*remainer;
+	static char		*remainer[OPEN_MAX];
 
 	if (fd < 0 || BUFFER_SIZE < 0 || read(fd, 0, 0))
 		return (NULL);
-	remainer = ft_readbuffer(fd, remainer);
-	if (!remainer)
+	remainer[fd] = ft_readbuffer(fd, remainer[fd]);
+	if (!remainer[fd])
 		return (NULL);
-	str = ft_getline(remainer);
-	remainer = ft_nextremainer(remainer);
+	str = ft_getline(remainer[fd]);
+	remainer[fd] = ft_nextremainer(remainer[fd]);
 	return (str);
 }
 
