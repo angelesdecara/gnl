@@ -2,6 +2,7 @@
 # Working on gnl
 
 * 05/03/2023
+-> CHECK: if sth doesn't work, free and return NULL
 -> completely redone, one issue remains
 -> if file is closed and reopened, the static variable still has a value and doesn't go back
 	to beginning of file, but appends buffer to remaining static variable.
