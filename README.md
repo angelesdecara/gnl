@@ -2,7 +2,10 @@
 # Working on gnl
 
 * 05/03/2023
+ -> Check gnl on dowloads as it only has leaks no errors on read_error
+
 -> CHECK: if sth doesn't work, free and return NULL
+ modifying line 44 to buffer = null and then free
 -> completely redone, one issue remains
 -> if file is closed and reopened, the static variable still has a value and doesn't go back
 	to beginning of file, but appends buffer to remaining static variable.
