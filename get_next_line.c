@@ -6,7 +6,7 @@
 /*   By: angrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:37:56 by angrodri          #+#    #+#             */
-/*   Updated: 2023/03/05 20:09:43 by angrodri         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:26:14 by angrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,14 @@ char	*get_next_line(int fd)
 	static char		*remainer;
 
 	if (fd < 0 || BUFFER_SIZE < 0 || read(fd, 0, 0))
+	{
+		if (remainer)
+		{
+			remainer = NULL;
+			free(remainer);
+		}
 		return (NULL);
+	}
 	remainer = ft_readbuffer(fd, remainer);
 	if (!remainer)
 		return (NULL);
@@ -35,6 +42,8 @@ char	*ft_readbuffer(int fd, char *remainer)
 	if (!remainer)
 		remainer = ft_calloc(1, 1);
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!buffer)
+		return (NULL);
 	i = 1;
 	while (i > 0)
 	{
@@ -44,7 +53,7 @@ char	*ft_readbuffer(int fd, char *remainer)
 			free(buffer);
 			return (NULL);
 		}
-		buffer[i] = 0;
+		buffer[i] = '\0';
 		remainer = ft_cpyfree(remainer, buffer);
 		if (ft_strchr(buffer, '\n'))
 			break ;
@@ -73,6 +82,8 @@ char	*ft_getline(char *remainer)
 	while (remainer[i] && remainer[i] != '\n')
 		i++;
 	str = ft_calloc(i + 2, sizeof(char));
+	if (!str)
+		return (NULL);
 	i = 0;
 	while (remainer[i] && remainer[i] != '\n')
 	{
@@ -81,6 +92,7 @@ char	*ft_getline(char *remainer)
 	}
 	if (remainer[i] && remainer[i] == '\n')
 		str[i++] = '\n';
+	str[i] = '\0';
 	return (str);
 }
 
@@ -99,10 +111,13 @@ char	*ft_nextremainer(char *allread)
 		return (NULL);
 	}
 	remainer = ft_calloc(ft_strlen(allread) - i + 1, sizeof(char));
+	if (!remainer)
+		return (NULL);
 	j = 0;
 	i++;
 	while (allread[i])
 		remainer[j++] = allread[i++];
+	remainer[j] = '\0';
 	free(allread);
 	return (remainer);
 }
